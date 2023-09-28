@@ -1,40 +1,43 @@
 import React from 'react'
-import clientPromise from '@/lib/mongodb'
+import Ticket from '@/models/ticket'
+import Link from 'next/link'
 
-async function getTickets() {
+const getTickets = async () => {
     try {
-        const db = (await clientPromise).db(process.env.DB_NAME)
-        const coll = db.collection(process.env.COL_NAME)
+        const res = await fetch("http://localhost:3000/api/tickets", {
+            cache: "no-store"
 
-        const tickets = coll.find({});
+            //or: 
+            // next: {
+            //     revalidate: 0
+            // }
+        });
 
 
-        let ticketArray = [];
-        for await (let ticket of tickets) {
-            ticketArray.push(ticket)
+        if (!res.ok) {
+            throw new Error("Can not fetch data")
         }
-        return ticketArray
+        return res.json();
 
-    }
-    catch (error) {
-        console.log('ERROR:', error)
+    } catch (error) {
+        console.log("CLIENT FETCH ERROR: ", error)
     }
 }
 
-
 export default async function TicketList() {
-    const tickets = await getTickets();
-
+    const { tickets } = await getTickets();
     return (
         <>
             {tickets.map((ticket) => (
-                <div key={ticket.id} className='tile my-5'>
-                    <h3>{ticket.title}</h3>
-                    <p>{ticket.body.slice(0, 200)}...</p>
-                    <div className={`pill ${ticket.priority}`}>
-                        {ticket.priority} priority
-                    </div>
+                <div key={ticket._id} className='tile my-5'>
+                    <Link href={`/tickets/${ticket._id}`}>
 
+                        <h3>{ticket.title}</h3>
+                        <p>{ticket.body.slice(0, 200)}...</p>
+                        <div className={`pill ${ticket.priority}`}>
+                            {ticket.priority} priority
+                        </div>
+                    </Link>
                 </div>
             ))}
             {tickets.length === 0 && (

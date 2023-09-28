@@ -8,7 +8,7 @@ body {
     @apply text-gray-500 
 }
 
-h1, h2 {
+h1, h2, h3 {
     @apply font-bold text-primary text-lg
 }
 
@@ -114,7 +114,7 @@ form button {
   .pill.low {
     @apply bg-emerald-300 text-emerald-600;
   }
-  .card .pill {
+  .tile .pill {
     @apply 
       absolute bottom-0 right-0 
       rounded-tl-md;

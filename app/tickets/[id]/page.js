@@ -1,32 +1,38 @@
-import React from 'react'
 
+import { PageNotFoundError } from 'next/dist/shared/lib/utils';
+import { notFound } from 'next/navigation'
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+
+    const res = await fetch('http://localhost:3000/api/tickets')
+    const { tickets } = await res.json()
+    return tickets.map((ticket) => ({
+        id: ticket._id
+    }))
+}
 
 const getTicketDetail = async (id) => {
-    try {
-        const res = await fetch("http://localhost:3000/api/tickets/" + id)
-
-        if (!res.ok) {
-            throw new Error("Could not fetech ticket detail.")
+    const res = await fetch("http://localhost:3000/api/tickets/" + id, {
+        next: {
+            revalidate: 60
         }
+    })
 
-        return res.json()
-    } catch (error) {
-        console.log("Could not fetch ticket detail", error)
-
+    if (!res.ok) {
+        notFound()
     }
+    return res.json()
 }
 
 export default async function TicketDetail({ params }) {
 
-
     const { ticket } = await getTicketDetail(params.id);
-    console.log(ticket)
+
     return (
         <main>
-
-
             <h2>Ticket Details</h2>
-
             <div className='tile'>
                 <h3>{ticket.title}</h3>
                 <small>Created by {ticket.user_email}</small>

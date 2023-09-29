@@ -3,25 +3,21 @@ import Ticket from '@/models/ticket'
 import Link from 'next/link'
 
 const getTickets = async () => {
-    try {
-        const res = await fetch("http://localhost:3000/api/tickets", {
-            cache: "no-store"
 
-            //or: 
-            // next: {
-            //     revalidate: 0
-            // }
-        });
+    await new Promise(resolve => setTimeout(resolve, 3000))
 
+    const res = await fetch("http://localhost:3000/api/tickets", {
+        cache: "no-store"
+        //or: 
+        // next: {
+        //     revalidate: 0
+        // }
+    });
 
-        if (!res.ok) {
-            throw new Error("Can not fetch data")
-        }
-        return res.json();
-
-    } catch (error) {
-        console.log("CLIENT FETCH ERROR: ", error)
+    if (!res.ok) {
+        throw new Error("Can not fetch data")
     }
+    return res.json();
 }
 
 export default async function TicketList() {

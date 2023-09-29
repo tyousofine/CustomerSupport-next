@@ -18,7 +18,7 @@ export async function GET() {
 }
 
 export async function DELETE(req) {
-    console.log("REQ receied by delete route: ", req)
+
     const id = req.nextUrl.searchParams.get('id')
     await connectMongoDB();
     await Ticket.findByIdAndDelete(id)

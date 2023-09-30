@@ -6,7 +6,7 @@ const getTickets = async () => {
     //for testing:
     // await new Promise(resolve => setTimeout(resolve, 3000))
 
-    const res = await fetch("http://localhost:3000/api/tickets", {
+    const res = await fetch(`${process.env.BASE_URL}/api/tickets`, {
         cache: "no-store"
         //or: 
         // next: {

@@ -6,7 +6,7 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
 
-    const res = await fetch('http://localhost:3000/api/tickets')
+    const res = await fetch(`${process.env.BASE_URL}/api/tickets`)
     const { tickets } = await res.json()
     return tickets.map((ticket) => ({
         id: ticket._id
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 }
 
 const getTicketDetail = async (id) => {
-    const res = await fetch("http://localhost:3000/api/tickets/" + id, {
+    const res = await fetch(`${proccess.env.BASE_URL}/api/tickets/` + id, {
         next: {
             revalidate: 60
         }

@@ -22,7 +22,7 @@ export default function CreateForm() {
             user_email: 'test@diversey.com'
         }
 
-        const res = await fetch('http://localhost:3000/api/tickets', {
+        const res = await fetch(`${process.env.BASE_URL}/api/tickets`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(ticket)

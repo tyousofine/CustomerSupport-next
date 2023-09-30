@@ -3,8 +3,8 @@ import Ticket from '@/models/ticket'
 import Link from 'next/link'
 
 const getTickets = async () => {
-
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    //for testing:
+    // await new Promise(resolve => setTimeout(resolve, 3000))
 
     const res = await fetch("http://localhost:3000/api/tickets", {
         cache: "no-store"

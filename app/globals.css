@@ -52,7 +52,7 @@ button:hover {
 }
 
 .btn-primary {
-    @apply bg-primary text-white
+    @apply bg-primary text-white rounded-md
 }
 
 .btn-secondary {

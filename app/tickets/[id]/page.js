@@ -3,10 +3,11 @@ import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { notFound } from 'next/navigation'
 
 export const dynamicParams = true;
+const APIUrl = process.env.API_URL;
 
 export async function generateStaticParams() {
 
-    const res = await fetch(`${process.env.BASE_URL}/api/tickets`)
+    const res = await fetch(`${APIUrl}/api/tickets`)
     const { tickets } = await res.json()
     return tickets.map((ticket) => ({
         id: ticket._id
@@ -14,7 +15,7 @@ export async function generateStaticParams() {
 }
 
 const getTicketDetail = async (id) => {
-    const res = await fetch(`${proccess.env.BASE_URL}/api/tickets/` + id, {
+    const res = await fetch(`${APIUrl}/api/tickets/` + id, {
         next: {
             revalidate: 60
         }

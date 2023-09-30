@@ -3,10 +3,11 @@ import Ticket from '@/models/ticket'
 import Link from 'next/link'
 
 const getTickets = async () => {
+    const APIUrl = process.env.API_URL;
     //for testing:
     // await new Promise(resolve => setTimeout(resolve, 3000))
 
-    const res = await fetch(`${process.env.BASE_URL}/api/tickets`, {
+    const res = await fetch(`${APIUrl}/api/tickets`, {
         cache: "no-store"
         //or: 
         // next: {

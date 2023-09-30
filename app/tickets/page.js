@@ -21,7 +21,8 @@ export default function Tickets() {
             </div>
 
             <Suspense fallback={<Loading />}>
-                <TicketList />
+                {/* <TicketList /> */}
+                <div>HELLO TEST BUILDING!</div>
             </Suspense>
         </main >
     )

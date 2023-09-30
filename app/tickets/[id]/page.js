@@ -34,7 +34,7 @@ export default async function TicketDetail({ params }) {
 
     return (
         <main>
-            <h2>Ticket Details</h2>
+            {/* <h2>Ticket Details</h2>
             <div className='tile'>
                 <h3>{ticket.title}</h3>
                 <small>Created by {ticket.user_email}</small>
@@ -42,7 +42,8 @@ export default async function TicketDetail({ params }) {
                 <div className={`pill ${ticket.priority}`}>
                     {ticket.priority} priority
                 </div>
-            </div>
+            </div> */}
+            <div>hihi</div>
 
         </main>
     )

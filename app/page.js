@@ -11,7 +11,7 @@ export default function Home() {
           <button className="btn-primary">View Tickets</button>
         </Link>
         <Link href="/tickets/create">
-          <button className="btn-primary">Create Tickets</button>
+          <button className="btn-primary">Create Ticket</button>
         </Link>
       </div>
 

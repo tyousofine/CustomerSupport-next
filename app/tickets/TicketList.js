@@ -6,19 +6,18 @@ const getTickets = async () => {
     const APIUrl = process.env.API_URL;
     //for testing:
     // await new Promise(resolve => setTimeout(resolve, 3000))
+    try {
+        const res = await fetch(`${APIUrl}/api/tickets`, {
+            cache: "no-store"
+        });
 
-    const res = await fetch(`${APIUrl}/api/tickets`, {
-        cache: "no-store"
-        //or: 
-        // next: {
-        //     revalidate: 0
-        // }
-    });
-
-    if (!res.ok) {
-        throw new Error("Can not fetch data")
+        if (!res.ok) {
+            throw new Error("Can not fetch data")
+        }
+        return res.json();
+    } catch (error) {
+        console.log("Could not get tickets", error)
     }
-    return res.json();
 }
 
 export default async function TicketList() {

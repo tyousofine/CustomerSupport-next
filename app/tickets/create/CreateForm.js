@@ -24,12 +24,14 @@ export default function CreateForm() {
 
         const res = await fetch('/api/tickets', {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(ticket)
         })
 
         if (res.ok) {
-            // router.refresh()
+            router.refresh()
             router.push('/tickets')
         }
 

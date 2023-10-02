@@ -24,3 +24,5 @@ export async function DELETE(req) {
     await Ticket.findByIdAndDelete(id)
     return NextResponse.json({ message: "Topic deleted" })
 }
+
+

@@ -1,31 +1,38 @@
 
-import { PageNotFoundError } from 'next/dist/shared/lib/utils';
 import { notFound } from 'next/navigation'
 
-export const dynamicParams = true;
+// export const dynamicParams = true;
 
-export async function generateStaticParams() {
-    const APIUrl = process.env.API_URL;
+// export async function generateStaticParams() {
+//     const APIUrl = process.env.API_URL;
+//     try {
+//         const res = await fetch(`${APIUrl}/api/tickets`)
+//         const { tickets } = await res.json()
+//         return tickets.map((ticket) => ({
+//             id: ticket._id
+//         }))
+//     } catch (error) {
+//         console.log("Could not generate static params", error)
 
-    const res = await fetch(`${APIUrl}/api/tickets`)
-    const { tickets } = await res.json()
-    return tickets.map((ticket) => ({
-        id: ticket._id
-    }))
-}
+//     }
+// }
 
 const getTicketDetail = async (id) => {
     const APIUrl = process.env.API_URL;
-    const res = await fetch(`${APIUrl}/api/tickets/` + id, {
-        next: {
-            revalidate: 60
-        }
-    })
 
-    if (!res.ok) {
-        notFound()
+    try {
+        const res = await fetch(`${APIUrl}/api/tickets/${id}`, {
+            next: {
+                revalidate: 60
+            }
+        })
+        if (!res.ok) {
+            notFound()
+        }
+        return res.json()
+    } catch (error) {
+        console.log('Could not get ticket detail', error)
     }
-    return res.json()
 }
 
 export default async function TicketDetail({ params }) {
@@ -34,7 +41,7 @@ export default async function TicketDetail({ params }) {
 
     return (
         <main>
-            {/* <h2>Ticket Details</h2>
+            <h2>Ticket Details</h2>
             <div className='tile'>
                 <h3>{ticket.title}</h3>
                 <small>Created by {ticket.user_email}</small>
@@ -42,8 +49,8 @@ export default async function TicketDetail({ params }) {
                 <div className={`pill ${ticket.priority}`}>
                     {ticket.priority} priority
                 </div>
-            </div> */}
-            <div>hihi</div>
+            </div>
+
 
         </main>
     )

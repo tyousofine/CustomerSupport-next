@@ -1,21 +1,21 @@
 
 import { notFound } from 'next/navigation'
 
-export const dynamicParams = true;
+// export const dynamicParams = true;
 
-export async function generateStaticParams() {
-    const APIUrl = process.env.API_URL;
-    try {
-        const res = await fetch(`${APIUrl}/api/tickets`)
-        const { tickets } = await res.json()
-        return tickets.map((ticket) => ({
-            id: ticket._id
-        }))
-    } catch (error) {
-        console.log("Could not generate static params", error)
+// export async function generateStaticParams() {
+//     const APIUrl = process.env.API_URL;
+//     try {
+//         const res = await fetch(`${APIUrl}/api/tickets`)
+//         const { tickets } = await res.json()
+//         return tickets.map((ticket) => ({
+//             id: ticket._id
+//         }))
+//     } catch (error) {
+//         console.log("Could not generate static params", error)
 
-    }
-}
+//     }
+// }
 
 const getTicketDetail = async (id) => {
     const APIUrl = process.env.API_URL;

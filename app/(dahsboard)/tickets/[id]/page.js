@@ -1,7 +1,6 @@
 
 import { notFound } from 'next/navigation'
 
-
 export const dynamicParams = true;
 
 export async function generateMetadata({ params }) {
@@ -10,6 +9,9 @@ export async function generateMetadata({ params }) {
     const res = await fetch(`${APIUrl}/api/tickets/${id}`)
     const ticket = await res.json()
 
+    if (!res.ok) {
+        notFound();
+    }
     return {
         title: `Diversey Maintenance stupport | ${ticket.title}`
     }
@@ -40,6 +42,7 @@ const getTicketDetail = async (id) => {
         })
         if (!res.ok) {
             console.log('res status: ', res.status)
+
             notFound()
         } else {
             return res.json()
@@ -50,6 +53,7 @@ const getTicketDetail = async (id) => {
 }
 
 export default async function TicketDetail({ params }) {
+
 
     const ticket = await getTicketDetail(params.id);
 

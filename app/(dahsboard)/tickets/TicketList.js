@@ -20,7 +20,7 @@ const getTickets = async () => {
 }
 
 export default async function TicketList() {
-    const { tickets } = await getTickets();
+    const tickets = await getTickets();
     return (
         <>
             {tickets.map((ticket) => (

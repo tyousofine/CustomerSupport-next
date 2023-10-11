@@ -1,7 +1,19 @@
 
 import { notFound } from 'next/navigation'
 
+
 export const dynamicParams = true;
+
+export async function generateMetadata({ params }) {
+    const id = params.id;
+    const APIUrl = process.env.API_URL;
+    const res = await fetch(`${APIUrl}/api/tickets/${id}`)
+    const ticket = await res.json()
+
+    return {
+        title: `Diversey Maintenance stupport | ${ticket.title}`
+    }
+}
 
 export async function generateStaticParams() {
     const APIUrl = process.env.API_URL;
@@ -27,9 +39,11 @@ const getTicketDetail = async (id) => {
             }
         })
         if (!res.ok) {
+            console.log('res status: ', res.status)
             notFound()
+        } else {
+            return res.json()
         }
-        return res.json()
     } catch (error) {
         console.log('Could not get ticket detail', error)
     }
@@ -37,11 +51,12 @@ const getTicketDetail = async (id) => {
 
 export default async function TicketDetail({ params }) {
 
-    const { ticket } = await getTicketDetail(params.id);
+    const ticket = await getTicketDetail(params.id);
 
     return (
         <main>
             <h2>Ticket Details</h2>
+
             <div className='tile'>
                 <h3>{ticket.title}</h3>
                 <small>Created by {ticket.user_email}</small>
@@ -50,6 +65,7 @@ export default async function TicketDetail({ params }) {
                     {ticket.priority} priority
                 </div>
             </div>
+
 
 
         </main>

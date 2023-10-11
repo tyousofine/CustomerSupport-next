@@ -1,5 +1,4 @@
 import React from 'react'
-import Ticket from '@/models/ticket'
 import Link from 'next/link'
 
 const getTickets = async () => {

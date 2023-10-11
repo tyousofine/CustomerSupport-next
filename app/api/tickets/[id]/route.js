@@ -15,8 +15,8 @@ export async function PUT(request, { params }) {
 export async function GET(req, { params }) {
     const { id } = params;
     await connectMongoDB();
-    const ticket = await Ticket.findOne({ _id: id });
-    return NextResponse.json({ ticket }, { status: 200 })
 
+    const ticket = await Ticket.findOne({ _id: id });
+    return NextResponse.json(ticket, { status: 200 })
 }
 

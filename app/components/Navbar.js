@@ -13,7 +13,7 @@ export default function Navbar() {
                 width={100}
                 quality={100}
                 placeholder='blur'></Image>
-            <h1>Diversey Support</h1>
+            <h1>Maintenance Support</h1>
             <Link href="/">Dashboard</Link>
             <Link href="/tickets">Tickets</Link>
         </nav>

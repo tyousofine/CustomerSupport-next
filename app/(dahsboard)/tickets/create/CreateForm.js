@@ -58,11 +58,13 @@ export default function CreateForm() {
             </label>
             <label>
                 <span>Priority:</span>
-                <input
-                    type="text"
-                    required
+                <select
                     onChange={(e) => setPriority(e.target.value)}
-                    value={priority} />
+                    value={priority}>
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
             </label>
             <button className='btn-primary'
                 disabled={isLoading}>

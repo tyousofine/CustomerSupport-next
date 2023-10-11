@@ -27,7 +27,7 @@ export default function Tickets() {
 
             <Suspense fallback={<Loading />}>
 
-                {/* <TicketList /> */}
+                <TicketList />
             </Suspense>
         </main >
     )

@@ -27,7 +27,7 @@ p > a {
 /* nav styles */
 nav {
     @apply p-8 border-b-2 border-gray-200
-    flex items-center gap-5 bg-white h-24 
+    flex items-center gap-5 bg-white h-24 max-w-6xl mx-auto
 }
 
 nav a, nav span {

@@ -1,28 +1,38 @@
-import connectMongoDB from "@/lib/mongodb";
-import Ticket from "@/models/ticket";
+
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
+import { cookies } from 'next/headers';
+
+// uncomment this if errros:
+export const dynamic = 'force-dynamic'
+
+//get supabse instance
+const supabase = createRouteHandlerClient({ cookies });
 
 export async function POST(req, res) {
-    const { title, body, priority, user_email } = await req.json();
+    const ticket = await req.json();
+    // get current user session
+    const { data: { session } } = await supabase.auth.getSession();
+    // insert data in supabase
+    const { data, error } = await supabase.from('Tickets')
+        .insert({
+            ...ticket,
+            user_email: session.user.email
+        })
+        .select()
+        .single()
 
-    await connectMongoDB();
-    await Ticket.create({ title, body, priority, user_email })
-    return NextResponse.json({ message: "Ticket Created" }, { status: 201 })
+    return NextResponse.json({ data, error })
+}
+
+export async function GET(req) {
+    const { data, error } = await supabase.from('Tickets').select();
+    return NextResponse.json({ data, error })
+
 }
 
 
-export async function GET() {
-    await connectMongoDB();
-    const tickets = await Ticket.find({});
-    return NextResponse.json(tickets, { status: 200 })
-}
 
-export async function DELETE(req) {
 
-    const id = req.nextUrl.searchParams.get('id')
-    await connectMongoDB();
-    await Ticket.findByIdAndDelete(id)
-    return NextResponse.json({ message: "Topic deleted" })
-}
 
 

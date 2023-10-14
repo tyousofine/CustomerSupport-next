@@ -7,9 +7,9 @@ import { cookies } from 'next/headers';
 export const dynamic = 'force-dynamic'
 
 //get supabse instance
-const supabase = createRouteHandlerClient({ cookies });
 
 export async function POST(req, res) {
+    const supabase = createRouteHandlerClient({ cookies });
     const ticket = await req.json();
     // get current user session
     const { data: { session } } = await supabase.auth.getSession();
@@ -26,6 +26,7 @@ export async function POST(req, res) {
 }
 
 export async function GET(req) {
+    const supabase = createRouteHandlerClient({ cookies });
     const { data, error } = await supabase.from('Tickets').select();
     return NextResponse.json({ data, error })
 

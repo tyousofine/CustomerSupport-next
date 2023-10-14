@@ -1,31 +1,17 @@
-import connectMongoDB from "@/lib/mongodb";
-import Ticket from "@/models/ticket";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
+import { cookies } from 'next/headers'
 
 
-export async function PUT(request, { params }) {
-    const { id } = params;
-    const { title, body, priority, user_email } = await request.json()
-    await connectMongoDB();
-
-    await Ticket.findByIdAndUpdate(id, { title, body, priority, user_email })
-    return NextResponse.json({ message: "Titcket updated" }, { status: 200 })
-}
-
-export async function GET(req, { params }) {
+export async function DELETE(_, { params }) {
     const id = params.id;
-    await connectMongoDB();
 
+    const supabase = createRouteHandlerClient({ cookies })
+    const { error } = await supabase.from('Tickets')
+        .delete()
+        .eq('id', id)
 
-    const ticket = await Ticket.findById({ _id: id }, {
-        next: {
-            revalidate: 0
-        }
-    });
-    if (!ticket) {
-        return NextResponse.json(null, { status: 500 })
-    }
-    return NextResponse.json(ticket, { status: 200 })
+    return NextResponse.json({ error })
+
 
 }
-

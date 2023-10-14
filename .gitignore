@@ -8,6 +8,10 @@
 # testing
 /coverage
 server.js
+<<<<<<< HEAD
+=======
+
+>>>>>>> postgres
 
 # next.js
 /.next/

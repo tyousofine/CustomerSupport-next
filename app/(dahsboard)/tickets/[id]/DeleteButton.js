@@ -13,7 +13,9 @@ export default function DeleteButton({ id }) {
         e.preventDefault()
         setIsLoading(true)
 
-        const res = await fetch(`http://localhost:3000/api/tickets/${id}`, {
+        const API_URL = process.env.API_URL
+
+        const res = await fetch(`${API_URL}/api/tickets/${id}`, {
             method: 'DELETE'
         })
 

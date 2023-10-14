@@ -6,20 +6,6 @@ import { cookies } from 'next/headers'
 
 
 const getTickets = async () => {
-
-    // const res = await fetch('http://localhost:3000/api/tickets', {
-    //     method: "GET",
-    //     cache: 'no-cache',
-
-    // })
-    // const json = await res.json()
-
-    // if (json.error) {
-    //     console.log('Error fetching tickets from db: ', json.error.message)
-    // }
-
-    // return json.data;
-
     const supabase = createServerComponentClient({ cookies })
 
     const { data, error } = await supabase.from('Tickets')
@@ -28,11 +14,6 @@ const getTickets = async () => {
     if (error) {
         console.log(error.message)
     }
-
-    // console.log("COOKIES: ", cookies)
-    // console.log("DATA: ", data)
-    // console.log("SESSION: ", session)
-
     return data
 }
 

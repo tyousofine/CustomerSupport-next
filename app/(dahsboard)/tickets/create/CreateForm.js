@@ -15,7 +15,6 @@ export default function CreateForm() {
         e.preventDefault();
         setIsLoading(true);
 
-        const API_URL = process.env.API_URL;
 
         const ticket = {
             title,
@@ -23,7 +22,7 @@ export default function CreateForm() {
             priority,
         }
 
-        const res = await fetch(`${API_URL}/api/tickets`, {
+        const res = await fetch(`/api/tickets`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

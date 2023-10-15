@@ -28,15 +28,15 @@ export async function POST(req, res) {
 
 
 // couldnt get the cookie work on server side.
-// export async function GET(request) {
-//     const supabase = createRouteHandlerClient({ cookies });
-//     console.log('SUPABASE: ', supabase)
-//     const { data: { session } } = await supabase.auth.getSession();
+export async function GET(request) {
+    const supabase = createRouteHandlerClient({ cookies });
+    // console.log('SUPABASE: ', supabase)
+    const { data: { session } } = await supabase.auth.getSession();
 
-//     const { data, error } = await supabase.from('Tickets').select();
-//     console.log('DATA: ', data)
-//     return NextResponse.json({ data, error })
-// }
+    const { data, error } = await supabase.from('Tickets').select();
+    // console.log('DATA: ', data)
+    return NextResponse.json({ data, error })
+}
 
 
 
